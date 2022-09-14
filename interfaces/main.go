@@ -24,13 +24,6 @@ func printGreeting(b bot) {
 	fmt.Println(b.getGreeting())
 }
 
-// 	fmt.Println((eb.getGreeting()))
-// }
-
-// func printGreeting(sb spanishBot){
-// 	fmt.Println(sb.getGreeting())
-// }
-
 func (eb englishBot) getGreeting() string {
 	// VERY vustom logic for generating an english greeting
 	return "Hi There!"
