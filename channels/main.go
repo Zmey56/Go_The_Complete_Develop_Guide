@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	start := time.Now()
+	// start := time.Now()
 	links := []string{
 		"http://google.com",
 		"http://facebook.com",
@@ -22,10 +22,15 @@ func main() {
 		go checkLink(link, c)
 	}
 
-	fmt.Println(<-c)
+	for l := range c {
+		go func() {
+			time.Sleep(5 * time.Second)
+			checkLink(l, c)
+		}()
+	}
 
-	duration := time.Since(start)
-	fmt.Println(duration)
+	// duration := time.Since(start)
+	// fmt.Println(duration)
 }
 
 func checkLink(link string, c chan string) {
@@ -33,10 +38,10 @@ func checkLink(link string, c chan string) {
 
 	if err != nil {
 		fmt.Println(link, "might be down!")
-		c <- "Might be down I think"
+		c <- link
 		return
 	}
 
 	fmt.Println(link, "is up!")
-	c <- "Yep it's up"
+	c <- link
 }
